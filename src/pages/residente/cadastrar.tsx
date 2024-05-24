@@ -44,6 +44,8 @@ const Resident: NextPage = () => {
     name: "",
     socialName: "",
     birthDate: "",
+    deQualFuroVoceVeio: "",
+    casoSejaDeOutroFuro: "",
     gender: "",
     race: "",
     religion: "",
@@ -81,6 +83,8 @@ const Resident: NextPage = () => {
         name: resident.name,
         socialName: resident.socialName,
         birthDate: resident.birthDate,
+        deQualFuroVoceVeio: resident.deQualFuroVoceVeio,
+        casoSejaDeOutroFuro: resident.casoSejaDeOutroFuro,
         gender: resident.gender,
         cpf: resident.cpf,
         rg: resident.rg,
@@ -110,6 +114,8 @@ const Resident: NextPage = () => {
         name: "",
         socialName: "",
         birthDate: "",
+        deQualFuroVoceVeio: "",
+        casoSejaDeOutroFuro: "",
         gender: "",
         rg: "",
         cpf: "",
@@ -243,7 +249,34 @@ const Resident: NextPage = () => {
 
           <div className="flex flex-col gap-1">
             <Text size="lg" asChild>
-              <label id="Genero">Qual a sua identidade de gênero</label>
+              <label id="Furo">De qual furo você veio?</label>
+            </Text>
+
+            <Select
+              id="Furo"
+              label="Furo"
+              variant="filled"
+              value={resident.deQualFuroVoceVeio}
+              onChange={(e) =>
+                setResident({ ...resident, deQualFuroVoceVeio: e.target.value })
+              }
+            >
+              <MenuItem value="Furo do Nazário">Furo do Nazário</MenuItem>
+              <MenuItem value="Madre de Deus 2">Madre de Deus 2</MenuItem>
+              <MenuItem value="Usina Vitória">Usina Vitória</MenuItem>
+            </Select>
+          </div>
+
+          <TextField
+            label="Caso seja de outro furo"
+            variant="filled"
+            value={resident.casoSejaDeOutroFuro}
+            onChange={(e) => setResident({ ...resident, casoSejaDeOutroFuro: e.target.value })}
+          />
+
+          <div className="flex flex-col gap-1">
+            <Text size="lg" asChild>
+              <label id="Genero">Qual a sua identidade de gênero?</label>
             </Text>
 
             <Select
@@ -368,7 +401,7 @@ const Resident: NextPage = () => {
                 }
               />
 
-{/* 
+              {/* 
               {resident.children > 0 && (
                 <>
                   {Array.from({ length: resident.children }, (_, index) => (

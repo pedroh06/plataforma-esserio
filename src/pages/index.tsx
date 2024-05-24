@@ -14,6 +14,10 @@ const fichas = [
     urlDestino: "/residente",
   },
   {
+    nome: "Ficha de Triagem Geral",
+    urlDestino: "/fichas/fichaDeTriagem",
+  },
+  {
     nome: "Nutrição - Triagem",
     urlDestino: "/fichas/nutricao",
   },

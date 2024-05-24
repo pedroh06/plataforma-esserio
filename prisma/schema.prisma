@@ -43,7 +43,9 @@ model Resident {
     socialName String?
     birthDate  DateTime?
     birthPlace String?
-    gender     String
+    gender     String?
+    deQualFuroVoceVeio String?
+    casoSejaDeOutroFuro String?
 
     race     String?
     religion String?
