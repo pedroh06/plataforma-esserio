@@ -131,7 +131,7 @@ export function Sidebar() {
                         )}
                       >
                         <Apple className="h-6 w-6" />
-                        <Text className="ml-3 font-bold">Fichaaa de triagem geral</Text>
+                        <Text className="ml-3 font-bold">FichaW de triagem geral</Text>
                       </Link>
 
                       <Link
