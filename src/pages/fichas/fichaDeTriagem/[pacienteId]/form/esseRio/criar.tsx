@@ -127,7 +127,7 @@ export default function Medicina() {
   return (
     <RecordLayout>
       <div className="my-4 flex w-full flex-col items-center justify-center gap-4 rounded-md bg-white px-4 py-16 shadow-2xl sm:w-[600px]">
-        <h1 className="bold text-xl">Ficha de Triagem Geral</h1>
+        <h1 className="bold text-xl">Ficha de Inovação</h1>
 
         <div className="relative flex w-full flex-col gap-4 px-2 pt-8">
           <button
