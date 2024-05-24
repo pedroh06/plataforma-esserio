@@ -1573,7 +1573,7 @@ export default function Medicina() {
                 <TextField
                   label=""
                   multiline
-                  rows={1}
+                  rows={10}
                   variant="filled"
                   value={formData.observacoes}
                   onChange={(e) =>
