@@ -1,0 +1,546 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+// prisma/schema.prisma
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+    // uncomment next line if you use Prisma <5.10
+    // directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+// datasource db {
+//     provider = "postgresql"
+//     url      = env("DATABASE_URL")
+// }
+
+model User {
+    id String @id @default(cuid())
+
+    name     String
+    email    String
+    password String
+    phone    String
+    area     String
+    role     String @default("user")
+    project  String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Resident {
+    id String @id @default(cuid())
+
+    name String?
+    cpf  String?
+    rg   String?
+
+    socialName String?
+    birthDate  DateTime?
+    birthPlace String?
+    gender     String
+
+    race     String?
+    religion String?
+
+    susCard String?
+    phone   String?
+
+    isChild        Boolean @default(false)
+    children       Int?
+    agesOfChildren Int[]   @default([])
+
+    // SOMENTE PARA CRIANCA
+    class         String?
+    responsibleId String?
+    responsible   Resident?  @relation("PersonResponsibility", fields: [responsibleId], references: [id])
+    childrenList  Resident[] @relation("PersonResponsibility")
+
+    // TODO: PASS TO ANOTHER TABLE 
+    profession                   String?
+    maritalStatus                String?
+    liveTogether                 String?
+    schooling                    String?
+    healthPlan                   String?
+    conditionsAccessTreatedWater String?
+    accessToTreatedWater         Boolean?
+    accessToSewage               Boolean?
+
+    status    String   @default("active")
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    Dental_Anamnesis_GAIA_1  Dental_Anamnesis_GAIA_1[]
+    Medical_Anamnesis_GAIA_1 Medical_Anamnesis_GAIA_1[]
+    Medical_Care_GAIA_1      Medical_Care_GAIA_1[]
+    Nutritional_Form_GAIA_1  Nutritional_Form_GAIA_1[]
+    physiotherapyAnamnesis   physiotherapyAnamnesis[]
+    Blank_Sheet              Blank_Sheet[]
+    Fisioterapia_Blank_Sheet Fisioterapia_Blank_Sheet[]
+    Medicina_Blank_Sheet     Medicina_Blank_Sheet[]
+    Nutricao_Blank_Sheet     Nutricao_Blank_Sheet[]
+    Odontologia_Blank_Sheet  Odontologia_Blank_Sheet[]
+    Psicologia_Blank_Sheet   Psicologia_Blank_Sheet[]
+    Direito_Blank_Sheet      Direito_Blank_Sheet[]
+    Psicologia_FORM_ESSE_RIO Psicologia_FORM_ESSE_RIO[]
+    Direito_FORM_ESSE_RIO    Direito_FORM_ESSE_RIO[]
+    Ficha_De_Triagem         Ficha_De_Triagem[]
+}
+
+model Blank_Sheet {
+    id     String @id @unique @default(cuid())
+    userId String
+
+    text String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Fisioterapia_Blank_Sheet {
+    id     String @id @unique @default(cuid())
+    userId String
+
+    text String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Medicina_Blank_Sheet {
+    id     String @id @unique @default(cuid())
+    userId String
+
+    text String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Nutricao_Blank_Sheet {
+    id     String @id @unique @default(cuid())
+    userId String
+
+    text String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Odontologia_Blank_Sheet {
+    id     String @id @unique @default(cuid())
+    userId String
+
+    text String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Psicologia_Blank_Sheet {
+    id     String @id @unique @default(cuid())
+    userId String
+
+    text String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Direito_Blank_Sheet {
+    id     String @id @unique @default(cuid())
+    userId String
+
+    text String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Dental_Anamnesis_GAIA_1 {
+    id     String @id @default(cuid())
+    userId String
+
+    complaint               String?
+    isToothache             String?
+    isGumPain               String?
+    isGumsBleedWhenBrushing String?
+    isUseToothpaste         String?
+    isUseDentalFloss        String?
+    brushingFrequency       String?
+    brushType               String?
+    brushChange             String?
+    isUsePacifier           String?
+    eatingHabits            String?
+    isAllergic              String?
+    allergy                 String?
+
+    dentalTreatmentStatus String?
+    dentalTreatment       String?
+
+    gum          String?
+    gumObs       String?
+    jugalMucosa  String?
+    jugalObs     String?
+    palate       String?
+    palateObs    String?
+    floor        String?
+    floorObs     String?
+    tongue       String?
+    tongueObs    String?
+    fluorosis    String?
+    fluorosisObs String?
+
+    teeth Json[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    resident Resident                        @relation(fields: [userId], references: [id], onDelete: Cascade)
+    tooth    Dental_Anamnesis_Tooth_GAIA_1[]
+}
+
+model Dental_Anamnesis_Tooth_GAIA_1 {
+    id                 String  @id @default(cuid())
+    dentalAnamnesis_Id String?
+
+    label       String?
+    zone        String?
+    observation String?
+
+    createdAt               DateTime                 @default(now())
+    updatedAt               DateTime                 @updatedAt
+    Dental_Anamnesis_GAIA_1 Dental_Anamnesis_GAIA_1? @relation(fields: [dentalAnamnesis_Id], references: [id])
+}
+
+model Medical_Anamnesis_GAIA_1 {
+    id     String @id @default(cuid())
+    userId String
+
+    bloodType    String?
+    priorIllness String?
+
+    previousHospitalizations          String?
+    reasonForPreviousHospitalizations String?
+    previousSurgeries                 String?
+    reasonForPreviousSurgeries        String?
+
+    injuries String?
+
+    allergies String?
+    allergy   String?
+
+    familyDiseases String?
+
+    physicalActivity String?
+    smoking          String?
+    smokersOf        String?
+
+    etilismo              String?
+    vaccineScheduleUpdate String?
+    typeOfHouse           String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Medical_Care_GAIA_1 {
+    id     String @id @default(cuid())
+    userId String
+
+    date            String?
+    weight          String?
+    height          String?
+    imc             String?
+    blood_pressure  String?
+    chief_complaint String?
+    evolution       String?
+    isda            String?
+
+    physical_exam            String?
+    general                  String?
+    cardiac_auscultation     String?
+    respiratory_auscultation String?
+    abdominal                String?
+    hipotese_diagnostica     String?
+    conduct                  String?
+
+    medic String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Direito_FORM_ESSE_RIO {
+    id     String @id @default(cuid())
+    userId String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Psicologia_FORM_ESSE_RIO {
+    id                        String   @id @default(cuid())
+    userId                    String
+    father_name               String?
+    father_age                String?
+    father_job                String?
+    father_scholarship        String?
+    mother_name               String?
+    mother_age                String?
+    mother_job                String?
+    mother_scholarship        String?
+    sons                      String?
+    partner_age               String?
+    partner_scholarship       String?
+    partner_name              String?
+    complaintMain             String?
+    choice_pain               String[]
+    extern_stress             String[]
+    which_stress              String?
+    syntoms_signals           String?
+    event_childhood           String?
+    family                    String?
+    other_observation         String?
+    psi_before                String?
+    desease                   String?
+    use_medicine              String?
+    historical_family_desease String?
+    family_substance_abuse    String?
+    family_suicide_history    String?
+    notes                     String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Ficha_De_Triagem {
+    id     String @id @default(cuid())
+    userId String
+
+    sua_casa_possui_energia_eletrica                                                       String[]
+    sua_casa_possui_energia_solar                                                          String[]
+    sua_casa_possui_fossa_de_alvenaria                                                     String[]
+    como_o_lixo_da_sua_casa_e_descartado                                                   String[]
+    se_a_opcao_for_outra                                                                   String?
+    sua_casa_possui_conexao_a_internet                                                     String[]
+    qual_o_tipo_de_internet                                                                String?
+    em_sua_casa_voces_cultivam_acai                                                        String[]
+    em_sua_casa_voces_cultivam_outras_culturas                                             String[]
+    se_sim_especifique                                                                     String?
+    em_sua_casa_ha_agua_potavel                                                            String[]
+    se_sim_como_voce_tem_acesso                                                            String[]
+    se_for_de_outra_maneira_especifique                                                    String?
+    qual_agua_e_utilizada_para_ativ_domestica_alem_do_consumo                              String[]
+    como_voce_classifica_o_turismo_na_sua_regiao                                           String[]
+    ha_incentivo_para_empreender_na_sua_regiao                                             String[]
+    existem_empreendimentos_na_sua_regiao                                                  String[]
+    em_sua_casa_voces_possuem_transporte_proprio                                           String[]
+    existem_cooperativas_na_sua_regiao                                                     String[]
+    qual_sua_opniao_sobre_cooperativismo                                                   String[]
+    qual_sua_renda_familiar                                                                String[]
+    voce_tem_vontade_de_empreender                                                         String[]
+    voce_ja_participou_de_algum_programa_de_capacitacao_ou_treinamento_em_empreendedorismo String[]
+    voce_teria_interesse_em_participar_se_fizessemos                                       String[]
+    observacoes                                                                             String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Nutritional_Form_GAIA_1 {
+    id String @id @default(cuid())
+
+    userId String
+
+    nutritionist_visit   String?
+    health_problem       String?
+    previous_pathologies String?
+    family_background    String?
+
+    use_medicine   String?
+    what_medicines String?
+
+    intestine_functioning_regularly String?
+    bowel_movements_day             String?
+    consistency                     String?
+    coloring                        String?
+    liters__water_consumed_per_day  String?
+    food_frequency                  String?
+    food_allergy_or_intolerance     String?
+    which_food                      String?
+    food_aversion                   String?
+    use_nutritional_supplements     String?
+
+    weight  String?
+    stature String?
+    imc     String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model physiotherapyAnamnesis {
+    id     String @id @default(cuid())
+    userId String
+
+    complaintMain      String?
+    complaintSecondary String?
+    hda                String?
+    medicinesUse       String?
+    personalBackground String?
+
+    painAssessment          String?
+    painAssessmentIntensity String?
+    painLocation            String?
+    painIntensity           String?
+    painFrequency           String?
+    painFeature             String?
+
+    specificInspection    String?
+    specificInspectionObs String?
+
+    weight String?
+    height String?
+    pa     String?
+    fc     String?
+    fr     String?
+    ap     String?
+
+    posturalEvaluation    String?
+    posturalEvaluationObs String?
+
+    thinFeel            String?
+    fineStop            String?
+    movementRestriction String?
+    perception          String?
+
+    // 12
+    jointMovement1 String?
+    preserved1E    String?
+    preserved1D    String?
+    diminished1E   String?
+    diminished1D   String?
+
+    jointMovement2 String?
+    preserved2E    String?
+    preserved2D    String?
+    diminished2E   String?
+    diminished2D   String?
+
+    jointMovement3 String?
+    preserved3E    String?
+    preserved3D    String?
+    diminished3E   String?
+    diminished3D   String?
+
+    jointMovement4 String?
+    preserved4E    String?
+    preserved4D    String?
+    diminished4E   String?
+    diminished4D   String?
+
+    jointMovement5 String?
+    preserved5E    String?
+    preserved5D    String?
+    diminished5E   String?
+    diminished5D   String?
+
+    jointMovement6 String?
+    preserved6E    String?
+    preserved6D    String?
+    diminished6E   String?
+    diminished6D   String?
+
+    jointMovement7 String?
+    preserved7E    String?
+    preserved7D    String?
+    diminished7E   String?
+    diminished7D   String?
+
+    jointMovement8 String?
+    preserved8E    String?
+    preserved8D    String?
+    diminished8E   String?
+    diminished8D   String?
+
+    jointMovement9 String?
+    preserved9E    String?
+    preserved9D    String?
+    diminished9E   String?
+    diminished9D   String?
+
+    jointMovement10 String?
+    preserved10E    String?
+    preserved10D    String?
+    diminished10E   String?
+    diminished10D   String?
+
+    jointMovement11 String?
+    preserved11E    String?
+    preserved11D    String?
+    diminished11E   String?
+    diminished11D   String?
+
+    jointMovement12 String?
+    preserved12E    String?
+    preserved12D    String?
+    diminished12E   String?
+    diminished12D   String?
+
+    memberTested1     String?
+    degreeOfStrength1 String?
+    memberTested2     String?
+    degreeOfStrength2 String?
+    memberTested3     String?
+    degreeOfStrength3 String?
+    memberTested4     String?
+    degreeOfStrength4 String?
+    memberTested5     String?
+    degreeOfStrength5 String?
+
+    specific_inspection  String[]
+    pain_characteristics String[]
+    pain_interference    String[]
+    pain_assessment      String[]
+
+    pastExercises String?
+
+    generalObservation String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
