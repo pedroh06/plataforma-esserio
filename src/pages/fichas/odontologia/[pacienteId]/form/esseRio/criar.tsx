@@ -55,6 +55,7 @@ export default function Medicina() {
     tongueObs: "",
     fluorosis: "",
     fluorosisObs: "",
+    observacoesOdonto: "",
   });
 
   React.useEffect(() => {
@@ -784,6 +785,23 @@ export default function Medicina() {
                 </div>
               );
             })}
+
+            <div className="flex flex-col gap-1">
+              <Text>Observações: </Text>
+              <TextField
+                label=""
+                multiline
+                rows={10}
+                variant="filled"
+                value={formData.observacoesOdonto}
+                onChange={(e) =>
+                  setFormDate({
+                    ...formData,
+                    observacoesOdonto: e.target.value,
+                  })
+                }
+              />
+            </div>
           </form>
 
           <Button

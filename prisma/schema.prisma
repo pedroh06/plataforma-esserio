@@ -40,11 +40,11 @@ model Resident {
     cpf  String?
     rg   String?
 
-    socialName String?
-    birthDate  DateTime?
-    birthPlace String?
-    gender     String?
-    deQualFuroVoceVeio String?
+    socialName          String?
+    birthDate           DateTime?
+    birthPlace          String?
+    gender              String?
+    deQualFuroVoceVeio  String?
     casoSejaDeOutroFuro String?
 
     race     String?
@@ -211,6 +211,7 @@ model Dental_Anamnesis_GAIA_1 {
     tongueObs    String?
     fluorosis    String?
     fluorosisObs String?
+    observacoesOdonto String?
 
     teeth Json[]
 
@@ -371,7 +372,8 @@ model Ficha_De_Triagem {
     voce_tem_vontade_de_empreender                                                         String[]
     voce_ja_participou_de_algum_programa_de_capacitacao_ou_treinamento_em_empreendedorismo String[]
     voce_teria_interesse_em_participar_se_fizessemos                                       String[]
-    observacoes                                                                             String?
+    como_voce_classifica_a_seguranca_publica_da_sua_regiao                                 String[]
+    observacoes                                                                            String?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

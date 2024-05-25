@@ -48,6 +48,7 @@ export default function Medicina() {
     voce_tem_vontade_de_empreender: [""],
     voce_ja_participou_de_algum_programa_de_capacitacao_ou_treinamento_em_empreendedorismo: [""],
     voce_teria_interesse_em_participar_se_fizessemos: [""],
+    como_voce_classifica_a_seguranca_publica_da_sua_regiao: [""],
     observacoes: ""
   });
 
@@ -127,7 +128,7 @@ export default function Medicina() {
   return (
     <RecordLayout>
       <div className="my-4 flex w-full flex-col items-center justify-center gap-4 rounded-md bg-white px-4 py-16 shadow-2xl sm:w-[600px]">
-        <h1 className="bold text-xl">Ficha de Inovação</h1>
+        <h1 className="bold text-xl">Ficha de Inovação  </h1>
 
         <div className="relative flex w-full flex-col gap-4 px-2 pt-8">
           <button
@@ -1568,6 +1569,111 @@ export default function Medicina() {
                   Não
                 </label>
               </div>
+
+              <Text size="lg" asChild>
+                <label>20. Como você classificaria a segurança pública na sua região?</label>
+              </Text>
+
+              <div className="flex items-center space-x-2 mb-2">
+                <Checkbox id="Excelente"
+                  checked={formData.como_voce_classifica_a_seguranca_publica_da_sua_regiao.includes("Excelente")}
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        como_voce_classifica_a_seguranca_publica_da_sua_regiao: [...formData.como_voce_classifica_a_seguranca_publica_da_sua_regiao, "Excelente"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        como_voce_classifica_a_seguranca_publica_da_sua_regiao: formData.como_voce_classifica_a_seguranca_publica_da_sua_regiao.filter((item) => item !== "Excelente"),
+                      })
+                    }
+                  }}
+                />
+                <label
+                  htmlFor="Excelente"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Excelente
+                </label>
+              </div>
+
+              <div className="flex items-center space-x-2 mb-2">
+                <Checkbox id="Bom"
+                  checked={formData.como_voce_classifica_a_seguranca_publica_da_sua_regiao.includes("Bom")}
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        como_voce_classifica_a_seguranca_publica_da_sua_regiao: [...formData.como_voce_classifica_a_seguranca_publica_da_sua_regiao, "Bom"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        como_voce_classifica_a_seguranca_publica_da_sua_regiao: formData.como_voce_classifica_a_seguranca_publica_da_sua_regiao.filter((item) => item !== "Bom"),
+                      })
+                    }
+                  }}
+                />
+                <label
+                  htmlFor="Bom"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Bom
+                </label>
+              </div>
+
+              <div className="flex items-center space-x-2 mb-2">
+                <Checkbox id="Regular"
+                  checked={formData.como_voce_classifica_a_seguranca_publica_da_sua_regiao.includes("Regular")}
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        como_voce_classifica_a_seguranca_publica_da_sua_regiao: [...formData.como_voce_classifica_a_seguranca_publica_da_sua_regiao, "Regular"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        como_voce_classifica_a_seguranca_publica_da_sua_regiao: formData.como_voce_classifica_a_seguranca_publica_da_sua_regiao.filter((item) => item !== "Regular"),
+                      })
+                    }
+                  }}
+                />
+                <label
+                  htmlFor="Regular"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Regular
+                </label>
+              </div>
+
+              <div className="flex items-center space-x-2 mb-2">
+                <Checkbox id="Ruim"
+                  checked={formData.como_voce_classifica_a_seguranca_publica_da_sua_regiao.includes("Ruim")}
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        como_voce_classifica_a_seguranca_publica_da_sua_regiao: [...formData.como_voce_classifica_a_seguranca_publica_da_sua_regiao, "Ruim"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        como_voce_classifica_a_seguranca_publica_da_sua_regiao: formData.como_voce_classifica_a_seguranca_publica_da_sua_regiao.filter((item) => item !== "Ruim"),
+                      })
+                    }
+                  }}
+                />
+                <label
+                  htmlFor="Ruim"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Ruim
+                </label>
+              </div>
+
               <div className="flex flex-col gap-1">
                 <Text>Observações: </Text>
                 <TextField
